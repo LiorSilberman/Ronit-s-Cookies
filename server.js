@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const multer  = require('multer');
 const app = express();
@@ -8,7 +9,10 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const { name } = require("ejs");
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://liorsil:liorsil@cluster0.28u4gep.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGODB_URI;
+const emailService = process.env.EMAIL_SERVICE;
+const emailUser = process.env.EMAIL_USER;
+const emailPass = process.env.EMAIL_PASS;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -43,10 +47,10 @@ run().catch(console.dir);
 
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: emailService,
     auth: {
-        user: 'delicious.final.project@gmail.com',
-        pass: 'hmbgzxxozniqyzbr'
+        user: emailUser,
+        pass: emailPass
     }
 });
 
