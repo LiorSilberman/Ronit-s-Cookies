@@ -42,12 +42,12 @@ Follow these steps to set up the project locally:
     `npm install`
 
 3. Set up environment variables:
-    Create a .env file in the root directory.
-    Add your MongoDB connection string and email service credentials to the `.env` file:
-        MONGODB_URI=your-mongodb-uri
-        EMAIL_SERVICE=your-email-service
-        EMAIL_USER=your-email-username
-        EMAIL_PASS=your-email-password
+    Create a .env file in the root directory.<br>
+    Add your MongoDB connection string and email service credentials to the `.env` file:<br>
+        `MONGODB_URI=your-mongodb-uri`<br>
+        `EMAIL_SERVICE=your-email-service`<br>
+        `EMAIL_USER=your-email-username`<br>
+        `EMAIL_PASS=your-email-password`<br>
 
 4. Start the server:
     `npm start`
