@@ -35,8 +35,8 @@ Ronit's Cookies is an online platform that allows users to browse, select, and o
 Follow these steps to set up the project locally:
 
 1. Clone the repository:<br>
-   `git clone https://github.com/your-username/ronits-cookies.git`<br>
-   `cd ronits-cookies`<br>
+   `git clone https://github.com/LiorSilberman/Ronit-s-Cookies.git`<br>
+   `cd Ronit-s-Cookies`<br>
 
 2. Install the dependencies:<br>
     `npm install`
