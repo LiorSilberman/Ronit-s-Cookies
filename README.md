@@ -1,0 +1,1 @@
+![Main page](images/main_before.PNG)
