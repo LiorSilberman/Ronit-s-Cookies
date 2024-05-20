@@ -58,8 +58,8 @@ Follow these steps to set up the project locally:
 **We welcome contributions to improve Ronit's Cookies! To contribute:**
 1. Fork the repository:
     
-    `git clone https://github.com/your-username/ronits-cookies.git`
-    `cd ronits-cookies`
+    `git clone https://github.com/LiorSilberman/Ronit-s-Cookies.git`
+    `cd Ronit-s-Cookies`
     `git checkout -b feature-branch`
 
 2. Create a new branch (`git checkout -b feature-branch`).
