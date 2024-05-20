@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>מוצרים</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Rubik+Doodle+Shadow&family=Zeyada&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="products_styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" style="background-color: #632d18;">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+          <span class="sr-only">החלף ניווט</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="ronit">
+            <a class="navbar-brand" href="/">Ronit's Cookies</a>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            <li id="name"><a href="/">שלום <%= name %></a></li>
+            <li id="products-link"><a href="/products">מוצרים</a></li>
+            <li id="checkout-link"><a href="/checkout">קופה</a></li>
+            <li id="order-link"><a href="/order">הזמנות</a></li>
+            <li id="logout-link"><a href="/logout">התנתק</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="container">
+        <header>
+            <button type="button" class="btn btn-primary fixed-button" data-toggle="modal" data-target="#ordersModal">
+                <div class="iconCart">
+                    <img src="cart.png" alt="">
+                    <div class="totalQuantity">
+                    <% let ind = 0 %> 
+                    <% let totalQuantity = 0 %> 
+                    <% if (!countCheckout1) { %>
+                        <% checkout1.forEach(function(order) { %>
+                            <% order.product.forEach(function(pro) { %>
+                                <% totalQuantity += order.quantity[ind] %>
+                            <% ind += 1 %> 
+                            <% }); %>
+                        <% }); %>
+                        <%= totalQuantity %>
+                    <% } else { %>
+                        0
+                    <% } %>
+                    </div>
+                </div>
+            </button>
+        </header>
+        <!-- Update product descriptions and names to Hebrew, example for one product card: -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="מגולגלות-שוקולד.jpg" class="product-image">
+                        <h6><b><u>מעמול שוקולד:</u> 30&#8362</b></h6>
+                        <p class="product-name">מעמול במילוי שוקולד נוטלה, פריך וטעים משהו לא מהעולם הזה.</p>
+                        <form id="zero" action="/products" method="post">
+                            <input type="button" value="-" class="quantity-button">
+                            <input type="text" value="1" name="quantity" class="quantity-input" min="1" onkeydown="return false">
+                            <input type="button" value="+" class="quantity-button"><br>
+                            <input type="submit" class="add-to-cart-button" name="add" value="הוסף"><span    class="added-item"></span>
+                            <input type="hidden" value="מעמול שוקולד" name="product" />
+                            <input type="hidden" value="30" name="price" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="עוגיות_טחינה.jpg" class="product-image">
+                        <h6><b><u>עוגיות טחינה:</u> 25&#8362</b></h6>
+                        <p class="product-name">עוגיות טחינה עטופות בבצק פילו עדין. מתוק ומומלץ</p>
+                        <form id="zero" action="/products" method="post">
+                            <input type="button" value="-" class="quantity-button">
+                            <input type="text" value="1" name="quantity" class="quantity-input" min="1" onkeydown="return false">
+                            <input type="button" value="+" class="quantity-button"><br>
+                            <input type="submit" class="add-to-cart-button" name="add" value="הוסף"><span class="added-item"></span>
+                            <input type="hidden" value="עוגיות טחינה" name="product" />
+                            <input type="hidden" value="25" name="price" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="קרקרים.jpg" class="product-image">
+                        <h6><b><u>קרקרים ממכרים:</u> 28&#8362</b></h6>
+                        <p class="product-name">קרקרים מעולים, סופר קראנצ'יים עם המון גרעינים. מתאימים לכל סוגי הגבינות או סתם ככה לנשנוש.</p>
+                        <form id="zero" action="/products" method="post">
+                            <input type="button" value="-" class="quantity-button">
+                            <input type="text" value="1" name="quantity" class="quantity-input" min="1" onkeydown="return false">
+                            <input type="button" value="+" class="quantity-button"><br>
+                            <input type="submit" class="add-to-cart-button" name="add" value="הוסף"><span class="added-item"></span>
+                            <input type="hidden" value="קרקרים ממכרים" name="product" />
+                            <input type="hidden" value="28" name="price" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="עוגת_תפוחים.jpg" class="product-image">
+                        <h6><b><u>עוגת תפוחים:</u> 25&#8362</b></h6>
+                        <p class="product-name">עוגת תפוחים עם טעם בלתי נשכח. מומלץ מאד!</p>
+                        <form id="zero" action="/products" method="post">
+                            <input type="button" value="-" class="quantity-button">
+                            <input type="text" value="1" name="quantity" class="quantity-input" min="1" onkeydown="return false">
+                            <input type="button" value="+" class="quantity-button"><br>
+                            <input type="submit" class="add-to-cart-button" name="add" value="הוסף"><span class="added-item"></span>
+                            <input type="hidden" value="עוגת תפוחים" name="product" />
+                            <input type="hidden" value="25" name="price" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="עוגת_תפוזים.jpg" class="product-image">
+                        <h6><b><u>עוגת תפוזים:</u> 30&#8362</b></h6>
+                        <p class="product-name">עוגת תפוזים אוורירית וטעימה בטירוף, מומלץ מאד לאירוח.</p>
+                        <form id="zero" action="/products" method="post">
+                            <input type="button" value="-" class="quantity-button">
+                            <input type="text" value="1" name="quantity" class="quantity-input" min="1" onkeydown="return false">
+                            <input type="button" value="+" class="quantity-button"><br>
+                            <input type="submit" class="add-to-cart-button" name="add" value="הוסף"><span class="added-item"></span>
+                            <input type="hidden" value="עוגת תפוזים" name="product" />
+                            <input type="hidden" value="30" name="price" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="ביסקוטים.jpg" class="product-image">
+                        <h6><b><u>ביסקוטים עם שוקולד ואגוזים:</u> 38&#8362</b></h6>
+                        <p class="product-name">הביסקוטים הכי קריספים וטעימים שאי פעם פגשתם.</p>
+                        <form id="zero" action="/products" method="post">
+                            <input type="button" value="-" class="quantity-button">
+                            <input type="text" value="1" name="quantity" class="quantity-input" min="1" onkeydown="return false">
+                            <input type="button" value="+" class="quantity-button"><br>
+                            <input type="submit" class="add-to-cart-button" name="add" value="הוסף"><span class="added-item"></span>
+                            <input type="hidden" value="ביסקוטים שוקולד ואגוזים" name="product" />
+                            <input type="hidden" value="38" name="price" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="ordersModal" tabindex="-1" role="dialog" aria-labelledby="ordersModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:#333; font-size: large;" class="modal-title" id="ordersModalLabel">פרטי ההזמנה</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body" id="ordersList">
+                    <% let i = 0 %> 
+                    <% if (!countCheckout1) { %>
+                        <% checkout1.forEach(function(order) { %>
+                            <% order.product.forEach(function(pro) { %>
+                                <p style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:#333; font-size: large;"><%= pro %> - כמות: <%= order.quantity[i] %></p>
+                            <% i += 1 %> 
+                            <% }); %>
+                        <% }); %>
+                        
+                    <% } else { %>
+                        <p style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:#333; font-size: large;">לא נבחרו מוצרים עדיין.</p>
+                    <% } %>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:#333; font-size: large; background-color:antiquewhite; width: auto; height:auto"">סגור</button>
+                <a href="/checkout?targetPage=checkout" class="btn btn-secondary" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:#333; font-size: large; background-color:coral">
+                    עבור לקופה
+                </a>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <br>
+    <footer>&copy; 2023 ליאור סילברמן. כל הזכויות שמורות.</footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
+    <script>
+        const minusButtons = document.querySelectorAll('.quantity-button[value="-"]');
+        const plusButtons = document.querySelectorAll('.quantity-button[value="+"]');
+        const addButtons = document.querySelectorAll('.add-to-cart-button[value="הוסף"]');
+        let product_link = document.getElementById("products-link");
+        let checkout_link = document.getElementById("checkout-link");
+        let order_link = document.getElementById("order-link");
+        let totalQuantity = 0;
+
+        product_link.addEventListener("click", function(event) {
+            event.preventDefault();
+            window.location.href = "/products?targetPage=products";
+        });
+        checkout_link.addEventListener("click", function(event) {
+            event.preventDefault();
+            window.location.href = "/checkout?targetPage=checkout";
+        });
+        order_link.addEventListener("click", function(event) {
+            event.preventDefault();
+            window.location.href = "/order?targetPage=order";
+        });
+
+        addButtons.forEach((addButton) => {
+            addButton.addEventListener('click', (event) => {
+                const form = addButton.closest("form"); // Get the closest form
+                const productName = form.querySelector('[name="product"]').value;
+                const quantityInput = form.querySelector('.quantity-input');
+                const quantity = parseInt(quantityInput.value);
+                const price = form.querySelector('[name="price"]').value;
+                const formData = new FormData(form);
+                event.preventDefault(); // Prevent form submission
+
+                // Always clear the 'added' indication after some time
+                let addedIndicator = form.querySelector('.added-item');
+                addedIndicator.textContent = 'נוסף!';
+                quantityInput.value = 1;
+                setTimeout(() => addedIndicator.textContent = '', 2000);
+
+                // Send the form data to the server
+                fetch('/products', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok.');
+                    } else{
+                        window.location.reload();
+                    }
+                    
+                    
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+            });
+        });
+
+        minusButtons.forEach((minusButton) => {
+          minusButton.addEventListener('click', (event) => {
+            const input = event.target.parentNode.querySelector('.quantity-input');
+            const value = parseInt(input.value);
+            if (value > 1) {
+              input.value = value - 1;
+            }
+          });
+        });
+        
+        plusButtons.forEach((plusButton) => {
+          plusButton.addEventListener('click', (event) => {
+            const input = event.target.parentNode.querySelector('.quantity-input');
+            const value = parseInt(input.value);
+            input.value = value + 1;
+          });
+        });
+      </script>
+</body>
+</html>
+  

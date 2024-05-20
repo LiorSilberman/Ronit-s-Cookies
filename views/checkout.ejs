@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>קופה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Rubik+Doodle+Shadow&family=Zeyada&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="checkout_styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" style="background-color: #632d18;">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="ronit">
+          <a class="navbar-brand" href="/">Ronit's Cookies</a>
+        </div>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            <li id="name"><a href="/">שלום <%= name %></a></li>
+            <li id="products-link"><a href="/products">מוצרים</a></li>
+            <li id="checkout-link"><a href="/checkout">קופה</a></li>
+            <li id="order-link"><a href="/order">הזמנות</a></li>
+            <li id="logout-link"><a href="/logout">התנתק</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+   
+  </nav>
+  <div class="container">
+    <div class="col-md-6">
+      <div class="table-container"></div>
+      <% let totalPrice = 0 %> 
+      <% let i = 0 %> 
+      <% if (countCheckout) {%>
+        העגלה ריקה.<br>
+        בבקשה, בקר בעמוד המוצרים ובצע הזמנה חדשה.<br>
+        <b>או</b><br>
+        ראה את ההזמנה שלך בדף ההזמנות.
+      <% } %>
+    
+      
+      <% checkout.forEach(function(order) { %>
+        
+      <table>
+        <b>שם:</b> <%= order.name %><br>
+        <b>מייל:</b> <%= order.email %><br><br>
+        <form id="delete" action="/deleteAllCheckouts" method="post">
+          <button class="noselect"><span class="text">הסר כל הפריטים</span><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span></button>
+        </form>
+        <br><br>
+        <tr>
+          <th>כמות</th>
+          <th>מוצר</th>
+          <th>&#8362</th>
+          <th>הסר פריט</th>
+        </tr>
+          <% order.product.forEach(function(pro) { %>
+          <tr>
+            
+            <td>(X<%= order.quantity[i] %>)</td>
+            <td><%= pro %></td>
+            <td><%= order.price[i] %></td>
+            <td>
+              <form id="zero" action="/checkout" method="post">
+                <button class="noselect"><span class="text">הסר פריט</span><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span></button>
+                <input type="hidden" value="<%= pro %>" name="product">
+                <input type="hidden" value="<%= i %>" name="index">
+              </form>
+            </td>
+          </tr>
+          <% totalPrice += order.quantity[i]*order.price[i] %>
+          <% i++ %>
+      <% }); %>
+      </table>
+      
+      
+        <br>
+        <b>סכום כולל:</b> <%= totalPrice %>&#8362 
+        <% }); %>
+      </ul>
+    </div>
+
+    <div class="col-md-6">
+      <form id="checkout-form" action="/orders" method="post">
+        <label for="name">שם:</label><br>
+        <input type="text" id="name" name="name" placeholder="הכנס את השם המלא שלך" required><br><br>
+        <label for="phone">מספר פלאפון:</label><br>
+        <input type="tel" id="phone" name="phone" placeholder="הכנס את מספר הפלאפון שלך" required><br><br>
+        <label for="address">כתובת:</label><br>
+        <input type="text" id="address" name="address" placeholder="הכנס כתובת מלאה" required><br><br>
+        <label for="comments">הערות:</label><br>
+        <textarea id="comments" name="comments" rows="4" cols="50" placeholder="הכנס הערות או בקשות מיוחדות"></textarea><br><br>
+        <input type="submit" class="sub" value="הזמן עכשיו" id="buy-button" onclick="showAlert()" name="submit">
+        <input type="hidden" class="price" value="<%= totalPrice %>" name="totalPrice">
+      </form>
+    </div>
+  </div>
+  <footer>&copy; 2023 ליאור סילברמן. כל הזכויות שמורות.</footer>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+      let product_link = document.getElementById("products-link");
+      let checkout_link = document.getElementById("checkout-link");
+      let order_link = document.getElementById("order-link");
+      const price = document.querySelector('[name="totalPrice"]').value;
+      const form = document.querySelector('#checkout-form');
+      const name = form.querySelector('[name="name"]');
+      product_link.innerHTML = '<a href="/products">מוצרים</a>';
+      product_link.addEventListener("click", function(event) {
+        event.preventDefault();
+        window.location.href = "/products?targetPage=products";
+      });
+  
+      checkout_link.addEventListener("click", function(event) {
+        event.preventDefault();
+        window.location.href = "/checkout?targetPage=checkout";
+      });
+      order_link.addEventListener("click", function(event) {
+        event.preventDefault();
+        window.location.href = "/order?targetPage=order";
+      });
+
+
+      function showAlert() {
+        
+        if (price > 0 && form.checkValidity()){
+          alert('ההזמנה התקבלה. מייל נשלח אלייך עם פרטי ההזמנה.');
+        }
+      }
+
+    </script>
+</body>
+</html>

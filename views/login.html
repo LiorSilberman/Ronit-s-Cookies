@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login</title>
+    <meta name="description" content="" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Rubik+Doodle+Shadow&family=Zeyada&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+
+  <!-- login form -->
+  <form action="/login" method="post">
+    <h1>כניסה:</h1>
+    <div>
+      <input type="text" name="email" placeholder="מייל" required>
+    </div>
+    <div>
+    <input type="password" name="password" placeholder="סיסמא" required>
+    </div>
+    <input type="submit" value="היכנס">
+    <input type="hidden" name="targetPage" value="login">
+    <div id="error-message" style="display: none;"></div>
+    <a href="/signup">הרשמה</a>
+    <a href="/">חזרה לעמוד הראשי</a>
+  </form>
+  
+  <footer>&copy; 2023 Lior Silberman. All rights reserved.</footer>
+    <script>
+      // dislpay error message
+      $(document).ready(function() {
+          const message = new URL(window.location.href).searchParams.get("message");
+          if (message) {
+          $("#error-message").text(decodeURIComponent(message)).show();
+          }
+      });
+    </script>
+  </body>
+</html>
